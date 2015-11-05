@@ -1,4 +1,26 @@
 <h1>
-<%= gravatar_for @user %>
-<%= @user.name %>
+  <%= gravatar_for @user %>
+  <%= @user.name %>
 </h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    プロフィール
+  </div>
+  <div class="panel-body">
+    <% if @user == current_user %> 
+      <label class ="col-sm-2 control-label">地域:</label>
+      <span class="col-sm-8">
+        <%= @user.place %>
+      </span>
+      
+      <br><br>
+        
+      <label class ="col-sm-2 control-label">詳細:</label>  
+        <span class="col-sm-8">
+          <%= @user.profile %>
+          (<%= link_to "edit" , edit_user_path(@user) %>)
+        </span>
+    <% end %>
+    <br>
+  </div>
+</div>

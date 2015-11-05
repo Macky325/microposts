@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   def show
-   @user = User.find(params[:id])
+    @users = User.all
   end
   
   def new
@@ -18,11 +19,28 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation)
-  
+  def edit
   end
+  
+  def update
+    if @user.update(user_params)
+      redirect_to root_path, notice: 'メッセージを更新しました'
+    else
+      render 'edit'
+    end
+  end
+  def destroy
+    @user.destroy
+    session[:user_id] = nil
+    redirect_to root_path
+  end
+  private
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :place, :profile)
+  end
+  
+  def set_user
+    @user = User.find(params[:id])
+  end
+  
 end
