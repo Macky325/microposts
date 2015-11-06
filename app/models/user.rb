@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
     validates :place , length: { maximum: 20 } , presence: true, on: :update
     validates :profile , length: { minimum: 2 , maximum: 30 } , presence: true, on: :update
     validates :email, presence: true, uniqueness: { case_sensitive: false }
+    has_many :microposts
 end

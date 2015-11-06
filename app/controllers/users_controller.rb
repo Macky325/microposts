@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
   def show
-    @users = User.all
+    @user = User.find(params[:id])
+    @microposts = @user.microposts
   end
   
   def new
@@ -28,11 +27,6 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
-  end
-  def destroy
-    @user.destroy
-    session[:user_id] = nil
-    redirect_to root_path
   end
   private
   def user_params
